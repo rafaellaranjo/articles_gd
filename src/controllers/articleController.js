@@ -55,4 +55,4 @@ async function deleteArticle(req, res) {
   }
 }
 
-module.exports = { createArticle, getAllArticles };
+module.exports = { createArticle, getAllArticles, updateArticle, deleteArticle };

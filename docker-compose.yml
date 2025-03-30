@@ -8,12 +8,13 @@ services:
       - /app/node_modules
     environment:
       PORT: 3000
-      JWT_SECRET: your_jwt_secret
+      JWT_SECRET: 099148eb414bd717a855e8514d74c0dbec5ab4dbd33ce5b23fd62236af7e74a6
       DB_HOST: db
       DB_PORT: 5432
-      DB_USER: postgres
-      DB_PASSWORD: postgres
-      DB_NAME: mydb
+      DB_USER: articles
+      DB_PASSWORD: adm_123
+      DB_NAME: articles_db
+      DATABASE_URL: postgres://articles:adm_123@db:5432/articles_db
     ports:
       - '3000:3000'
     depends_on:
@@ -21,15 +22,16 @@ services:
     command: sh -c "npm install && npm run dev"
 
   db:
-    image: postgres:15-alpine
+    image: postgres:13
+    container_name: articles_gd_db
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: mydb
-    volumes:
-      - pgdata:/var/lib/postgresql/data
+      POSTGRES_USER: articles
+      POSTGRES_PASSWORD: adm_123
+      POSTGRES_DB: articles_db
     ports:
-      - '5432:5432'
-
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    
 volumes:
-  pgdata:
+  db_data:

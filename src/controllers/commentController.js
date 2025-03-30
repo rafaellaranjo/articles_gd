@@ -25,4 +25,4 @@ async function deleteComment(req, res) {
   }
 }
 
-module.exports = { addComment };
+module.exports = { addComment, deleteComment };

@@ -24,6 +24,7 @@ const Article = sequelize.define('Article', {
     defaultValue: [],
   },
 }, {
+  tableName: 'articles',
   timestamps: true,
 });
 

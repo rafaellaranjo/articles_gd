@@ -5,3 +5,5 @@ const articleSeeder = [
     { id: 4, title: 'Como Kubernetes Revolucionou a Orquestração de Contêineres', author: 'Geovana Rocha', content: 'Kubernetes se tornou a principal solução...', tags: ['Kubernetes', 'contêineres', 'orquestração'] },
     { id: 5, title: 'Os Desafios da Segurança em Arquiteturas Serverless', author: 'Carlos Henrique', content: 'As arquiteturas serverless oferecem...', tags: ['serverless', 'segurança', 'cloud'] }
 ];
+
+module.exports = articleSeeder;

@@ -41,9 +41,8 @@ http://localhost:3000
 ### Rodando as Migrations e Seeders
 Para criar as tabelas e popular o banco, execute:
 ```
-docker exec -it nodejs-api-postgres bash
+docker exec -it articles_gd_api_1 sh
 node src/migrations/migrate.js
-node src/seeders/seed.js
 ```
 
 ## Tecnologias

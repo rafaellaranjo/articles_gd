@@ -1,7 +1,7 @@
 const express = require('express');
 const { register, login } = require('../controllers/userController');
-const { createArticle, getAllArticles } = require('../controllers/articleController');
-const { addComment } = require('../controllers/commentController');
+const { createArticle, getAllArticles, updateArticle, deleteArticle } = require('../controllers/articleController');
+const { addComment, deleteComment } = require('../controllers/commentController');
 const { authenticateToken } = require('../middlewares/authMiddleware');
 
 const router = express.Router();
