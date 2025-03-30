@@ -18,7 +18,7 @@ Esta é uma API construída em Node.js que utiliza PostgreSQL como banco de dado
 ### Passos
 1. Clone o repositório:
 ```
-git clone https://github.com/usuario/nodejs-api-postgres.git
+git clone https://github.com/rafaellaranjo/articles_gd
 cd nodejs-api-postgres
 ```
 2. Execute o projeto com Docker Compose:
