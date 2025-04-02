@@ -5,6 +5,7 @@ const createCommentsTable = require('./create_comments_table');
 const userSeeder = require('../seeders/userSeeder');
 const articleSeeder = require('../seeders/articleSeeder');
 const commentSeeder = require('../seeders/commentSeeder');
+const bcrypt = require('bcrypt');
 
 const client = new Client({
   connectionString: process.env.DATABASE_URL,
@@ -22,7 +23,8 @@ async function migrate() {
 
     // Inserindo dados iniciais (seeders)
     for (const user of userSeeder) {
-      await client.query('INSERT INTO users (id, username, password) VALUES ($1, $2, $3)', [user.id, user.username, user.password]);
+      const hashedPassword = await bcrypt.hash(user.password, 10);
+      await client.query('INSERT INTO users (id, username, email, password) VALUES ($1, $2, $3, $4)', [user.id, user.username, user.email, hashedPassword]);
     }
 
     for (const article of articleSeeder) {
@@ -32,7 +34,7 @@ async function migrate() {
 
     for (const comment of commentSeeder) {
       await client.query('INSERT INTO comments (id, article_id, content, author) VALUES ($1, $2, $3, $4)', 
-        [comment.id, comment.article_id, comment.content, comment.author]);
+        [comment.id, comment.articleId, comment.content, comment.author]);
     }
 
     console.log('Migration and seeding completed!');

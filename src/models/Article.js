@@ -26,6 +26,16 @@ const Article = sequelize.define('Article', {
 }, {
   tableName: 'articles',
   timestamps: true,
+  hooks: {
+    beforeCreate: async (comment) => {
+      if (comment.id) {
+        const exists = await Comment.findOne({ where: { id: comment.id } });
+        if (exists) {
+          delete comment.dataValues.id;
+        }
+      }
+    }
+  }
 });
 
 module.exports = Article;

@@ -24,6 +24,16 @@ const User = sequelize.define('User', {
 }, {
   tableName: 'users',
   timestamps: true,
+  hooks: {
+    beforeCreate: async (comment) => {
+      if (comment.id) {
+        const exists = await Comment.findOne({ where: { id: comment.id } });
+        if (exists) {
+          delete comment.dataValues.id;
+        }
+      }
+    }
+  }
 });
 
 module.exports = User;

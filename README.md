@@ -27,7 +27,7 @@ docker-compose up --build
 ```
 3. Acesse a API em:
 ```
-http://localhost:3000
+http://localhost:3001
 ```
 
 ### Endpoints Principais

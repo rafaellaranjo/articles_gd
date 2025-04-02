@@ -4,9 +4,20 @@ const Comment = require('../models/Comment');
 async function addComment(req, res) {
   try {
     const { content, author, articleId } = req.body;
-    const comment = await Comment.create({ content, author, articleId });
+
+    if (!content || !articleId || !author) {
+      return res.status(400).json({ 
+        error: 'Todos os campos são obrigatórios' 
+      });
+    }
+
+    const comment = await Comment.create({ content, author, article_id: articleId });
     res.status(201).json(comment);
   } catch (err) {
+    if (err.name === 'Validation error') {
+      const errors = Object.values(err.errors).map(el => el.message);
+      return res.status(400).json({ error: errors.join(', ') });
+    }
     res.status(500).json({ error: err.message });
   }
 }
@@ -25,4 +36,18 @@ async function deleteComment(req, res) {
   }
 }
 
-module.exports = { addComment, deleteComment };
+async function getCommentsArticle(req, res) {
+  try {
+    const { articleId } = req.query;
+
+    if (!articleId) {
+      return res.status(400).json({ message: "Article ID is required" });
+    }
+    const comment = await Comment.findAll({ where: { article_id: articleId} });
+    res.status(201).json(comment);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+module.exports = { addComment, deleteComment, getCommentsArticle };

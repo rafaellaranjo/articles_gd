@@ -16,7 +16,7 @@ const Comment = sequelize.define('Comment', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  articleId: {
+  article_id: {
     type: DataTypes.INTEGER,
     references: {
       model: Article,
@@ -26,6 +26,16 @@ const Comment = sequelize.define('Comment', {
 }, {
   tableName: 'comments',
   timestamps: true,
+  hooks: {
+    beforeCreate: async (comment) => {
+      if (comment.id) {
+        const exists = await Comment.findOne({ where: { id: comment.id } });
+        if (exists) {
+          delete comment.dataValues.id;
+        }
+      }
+    }
+  }
 });
 
 module.exports = Comment;

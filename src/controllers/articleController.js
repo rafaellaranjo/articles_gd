@@ -21,6 +21,18 @@ async function getAllArticles(req, res) {
   }
 }
 
+// Obter um artigos
+async function getArticle(req, res) {
+  try {
+    const { id } = req.params;
+    const article = await Article.findByPk(id);
+    if (!article) return res.status(404).json({ error: 'Article not found' });
+    res.json(article);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
 // Atualizar um artigo
 async function updateArticle(req, res) {
   try {
@@ -55,4 +67,4 @@ async function deleteArticle(req, res) {
   }
 }
 
-module.exports = { createArticle, getAllArticles, updateArticle, deleteArticle };
+module.exports = { createArticle, getAllArticles, getArticle, updateArticle, deleteArticle };
